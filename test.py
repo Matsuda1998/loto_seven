@@ -68,7 +68,7 @@ def appear_all(n):
     """直近ｎ回のすべての位置での出現頻度を調べる"""
     n=n*-1
     recent_result=total_result[n:]
-    print(recent_result)
+    print(recent_result)#直近ｎ回の当選番号のリスト
     appear=[None,[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],
             [8,0],[9,0],[10,0],[11,0],[12,0],[13,0],[14,0],
             [15,0],[16,0],[17,0],[18,0],[19,0],[20,0],[21,0],
@@ -82,4 +82,20 @@ def appear_all(n):
     appear.sort(key=lambda x: x[1],reverse=True)
     print(appear)
 appear_all(2)
-   
+
+def int_column(n,m):
+    """第ｎ回の第ｍ数字の値とその第ｍ数字の列における出現間隔値を調べる
+    先頭数字の評価に使う"""
+    n_result=total_result[n][m]
+    m_column=[]#第ｍ数字のリスト
+    for i in range(1,n+1):
+        m_column.append(total_result[i][m])
+    m_column.reverse()#新しいほうからへ並び替え
+    m_column[0]=None#インデックス０は第ｎ回そのものなのでＮＯＮＥで埋める
+    if n_result in m_column:
+        int_n=m_column.index(n_result)#数字がなかった時の処理考える
+    print(n_result)
+    print(m_column)
+    print(int_n)
+int_column(7,1)
+
