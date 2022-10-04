@@ -94,8 +94,26 @@ def int_column(n,m):
     m_column[0]=None#インデックス０は第ｎ回そのものなのでＮＯＮＥで埋める
     if n_result in m_column:
         int_n=m_column.index(n_result)#数字がなかった時の処理考える
+    else :
+        int_n=0
     print(n_result)
     print(m_column)
     print(int_n)
-int_column(7,1)
+int_column(7,2)
 
+def int_all(n,m):
+    """第ｎ回の第ｍ数字の値とすべての位置での出現間隔値を調べる"""
+    n_result=total_result[n][m]
+    sub_total_result=total_result[:n]
+    sub_reverse_result=reversed(sub_total_result)#新しいほうからへ並び替え
+    sub_reverse_result=list(sub_reverse_result)#イデレータをリスト化
+    int_n=0
+    for i in range(n-1):
+        if n_result in sub_reverse_result[i]:
+            int_n=i+1
+            break
+    print(total_result)
+    print(n_result)
+    print(sub_reverse_result)
+    print(int_n)
+int_all(9,1)
