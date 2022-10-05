@@ -117,3 +117,25 @@ def int_all(n,m):
     print(sub_reverse_result)
     print(int_n)
 int_all(9,1)
+
+def next_number(n,m):
+    """第ｎ回の当選番号の第ｍ数字から次回にその第ｍ数字の列に
+    出た数字を調べる"""
+    n_result=total_result[n][m]
+    appear=[None,[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],
+            [8,0],[9,0],[10,0],[11,0],[12,0],[13,0],[14,0],
+            [15,0],[16,0],[17,0],[18,0],[19,0],[20,0],[21,0],
+            [22,0],[23,0],[24,0],[25,0],[26,0],[27,0],[28,0],
+            [29,0],[30,0],[31,0],[32,0],[33,0],[34,0],[35,0],
+            [36,0],[37,0]]#1~37に出現回数を割り当てるためのリスト
+    for i in range(1,len(total_result)-1):#len()-1:最新の結果は除く(次回はないため)
+        if n_result == total_result[i][m]:
+            next=total_result[i+1][m]
+            appear[next][1]+=1
+    appear.pop(0)
+    appear.sort(key=lambda x: x[1],reverse=True)
+    print(appear)
+next_number(5,1)    
+
+
+    
