@@ -135,7 +135,23 @@ def next_number(n,m):
     appear.pop(0)
     appear.sort(key=lambda x: x[1],reverse=True)
     print(appear)
-next_number(5,1)    
+next_number(10,2)
 
-
-    
+def present_one_digit(n):
+    """直近ｎ回の下一桁数字（０～９）とその位置（第ｍ数字として）を
+    調べる"""
+    n=n*-1
+    recent_result=total_result[n:]
+    print(recent_result)#直近ｎ回の当選番号のリスト
+    recent_one_digit=[None]
+    for val in recent_result:
+        str_line=[]
+        for i in range(1,8):
+            str_rize=str(val[i])#文字化
+            str_rize=str_rize[-1]#下一桁を取り出す(最後のインデックス)
+            str_line.append(str_rize)
+        recent_one_digit.append(str_line)
+    print(recent_one_digit)
+present_one_digit(2)
+#まだ未完成。またintに戻したほうが良い？出来たリストを評価して
+#同じ下一桁数字をintに戻しわかるようにする？
