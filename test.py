@@ -140,18 +140,43 @@ next_number(10,2)
 def present_one_digit(n):
     """直近ｎ回の下一桁数字（０～９）とその位置（第ｍ数字として）を
     調べる"""
-    n=n*-1
-    recent_result=total_result[n:]
+    m=n*-1
+    recent_result=total_result[m:]
     print(recent_result)#直近ｎ回の当選番号のリスト
     recent_one_digit=[None]
-    for val in recent_result:
+    for j,val in enumerate(recent_result):
         str_line=[]
         for i in range(1,8):
             str_rize=str(val[i])#文字化
             str_rize=str_rize[-1]#下一桁を取り出す(最後のインデックス)
             str_line.append(str_rize)
         recent_one_digit.append(str_line)
+        recent_one_digit[j+1].insert(0,None)
     print(recent_one_digit)
+
+    checker=["0","1","2","3","4","5","6","7","8","9"]
+    one_digit_posi=[None]
+    for j in range(1,n+1):
+        sub_posi=[["0"],["1"],["2"],["3"],["4"],["5"],["6"],["7"],["8"],["9"]]
+        for i,val in enumerate(recent_one_digit[j]):
+            for check in checker:
+                if check == val:
+                    sub_posi[checker.index(check)].append(i)
+        one_digit_posi.append(sub_posi)
+    print(one_digit_posi)
+    return one_digit_posi
+
 present_one_digit(2)
-#まだ未完成。またintに戻したほうが良い？出来たリストを評価して
-#同じ下一桁数字をintに戻しわかるようにする？
+
+def sort_pre_one_digit(s):
+    """関数present_one_digitで得られたリスト(引数)をソート、カット
+    リストのようなミュータブルオブジェクトの場合、b=a(参照渡し)とやると
+    b或いはaの変更が、a或いはbにも反映されてしまう。
+    (文字列、タプルのようなイミュータブルは気にしないでＯＫ）
+    なので関数を分ける。参考：https://snowtree-injune.com/2018/07/17/post-565/"""
+    s.pop(0)
+    for i in range(len(s)):
+        s[i].sort(key=lambda x: len(x),reverse=True)
+    print(s)
+
+sort_pre_one_digit(present_one_digit(2))
