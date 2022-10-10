@@ -162,7 +162,7 @@ def present_one_digit(n):
             for check in checker:
                 if check == val:
                     sub_posi[checker.index(check)].append(i)
-        one_digit_posi.append(sub_posi)
+        one_digit_posi.append(sub_posi)#インデックス０は下一桁数字の値、インデックス１以降は位置(第ｍ数字として)
     print(one_digit_posi)
     return one_digit_posi
 
@@ -173,10 +173,28 @@ def sort_pre_one_digit(s):
     リストのようなミュータブルオブジェクトの場合、b=a(参照渡し)とやると
     b或いはaの変更が、a或いはbにも反映されてしまう。
     (文字列、タプルのようなイミュータブルは気にしないでＯＫ）
-    なので関数を分ける。参考：https://snowtree-injune.com/2018/07/17/post-565/"""
+    なので関数を分ける。関数を分けても関数の戻り値(リスト)を変数に代入(参照渡し)して
+    使いまわしたらダメ、影響を受ける。影響を受けないためには一々メモリにロードし別オブジェクトにする
+    まとめ
+    変数に代入(参照渡し)：ミュータブルオブジェクト(要素がイミュータブルでも)は変更が元のオブジェクトに反映
+    浅いコピー(スライスとかcopyメソッド)：要素がミュータブルなら(リストの要素がリストとか)は影響される
+    深いコピー(deepcopyメソッド)：大丈夫！
+    参考：https://snowtree-injune.com/2018/07/17/post-565/とか
+    https://note.nkmk.me/python-copy-deepcopy/
+    """
+    #↑これ大事。total_resultを加工したリストの変数を作りそれを加工するとtotal_resultが変わってしまう！
+    #今まで作った関数チェックの事 
+    #total_resultは要素がタプルなのでスライスして作ったオブジェクトは大丈夫！
+    #one_digit_posiは要素がリストなのでそこから作ったオブジェクトを加工すると
+    #元のオブジェクトも影響を受ける。deepcopyか関数を分ける
     s.pop(0)
     for i in range(len(s)):
         s[i].sort(key=lambda x: len(x),reverse=True)
+    for i,val in enumerate(s):
+        for j,val2 in enumerate(val):
+            if len(val2)==2:
+                break
+        s[i]=s[i][:j]
     print(s)
 
-sort_pre_one_digit(present_one_digit(2))
+sort_pre_one_digit(present_one_digit(6))
