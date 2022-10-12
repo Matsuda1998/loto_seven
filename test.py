@@ -198,3 +198,37 @@ def sort_pre_one_digit(s):
     print(s)
 
 sort_pre_one_digit(present_one_digit(6))
+
+def next_one_digit(n):
+    """第ｎ回の当選番号の下一桁数字が次回にどの下一桁数字が出たかを
+    調べる。"""
+    n_result=total_result[n:n+2]
+    n_result.insert(0,None)
+    print(n_result)#第ｎ回の当選番号のリスト
+    n_one_digit=[None]
+    for j,val in enumerate(n_result):
+        if val == None:
+            continue
+        str_line=[]
+        for i in range(1,8):
+            str_rize=str(val[i])#文字化
+            str_rize=str_rize[-1]#下一桁を取り出す(最後のインデックス)
+            str_line.append(str_rize)
+        n_one_digit.append(str_line)
+        n_one_digit[j].insert(0,None)
+    print(n_one_digit)
+
+    next_list=[]
+    for j ,val1 in enumerate(n_one_digit[1]):
+        if val1 == None:
+            continue
+        for i ,val2 in enumerate(n_one_digit[2]):
+            if val2 == None:
+                continue
+            if val1 == val2 :
+                t=(val1,n_result[1][j],j,n_result[2][i],i)
+                #下一桁数字,ｎ回の数字，ｎ回の位置（第ｍ数字）,次回の数字，次回の位置（第ｍ数字）
+                next_list.append(t)
+    print(next_list)
+
+next_one_digit(3)
