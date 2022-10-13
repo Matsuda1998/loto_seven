@@ -227,8 +227,59 @@ def next_one_digit(n):
                 continue
             if val1 == val2 :
                 t=(val1,n_result[1][j],j,n_result[2][i],i)
-                #下一桁数字,ｎ回の数字，ｎ回の位置（第ｍ数字）,次回の数字，次回の位置（第ｍ数字）
+                #下一桁数字,ｎ回の数字，ｎ回の位置（第ｍ数字）,次回（ｎ＋１）の数字，次回（ｎ＋１）の位置（第ｍ数字）
                 next_list.append(t)
     print(next_list)
 
 next_one_digit(3)
+
+#もう少し簡単にならないかやってみる。
+def present_one_digit(n):
+    """直近ｎ回の下一桁数字（０～９）とその位置（第ｍ数字として）を
+    調べる"""
+    m=n*-1
+    recent_result=total_result[m:]
+    recent_result.insert(0,None)
+    print(recent_result)#直近ｎ回の当選番号のリスト
+    recent_one_digit=[None]
+    for j,val in enumerate(recent_result):
+        if val == None:
+            continue
+        str_line=[]
+        for i in range(1,8):
+            str_rize=str(val[i])#文字化
+            str_rize=str_rize[-1]#下一桁を取り出す(最後のインデックス)
+            str_line.append(str_rize)
+        recent_one_digit.append(str_line)
+        recent_one_digit[j].insert(0,None)
+    print(recent_one_digit)
+
+    checker=["0","1","2","3","4","5","6","7","8","9"]
+    one_digit_posi=[None]
+    for j in range(1,n+1):
+        sub_posi=[]
+        sub_posi2=[]
+        for i,val in enumerate(recent_one_digit[j]):
+            if val == None:
+                continue
+            for h in checker:
+                if h == val:
+                    l=[h,recent_result[j][i],i]#下一桁数字，その数字，位置（第ｍ数字として）
+                    sub_posi.append(l)
+        print(sub_posi)
+        #ここにsub_posiのインデックス０を評価して出現回数が２未満は消すコードを入れる
+        l2=[x[0] for x in sub_posi]
+        print(l2)
+        l2=[val2 for val2 in l2 if l2.count(val2)>1]
+        print(l2)
+        l3=[]
+        l2=[x for x in l2 if x not in l3 and not l3.append(x)]
+        print(l2)
+        for m in l2:
+            for val3 in sub_posi:
+                if val3[0] == m:
+                    sub_posi2.append(val3)
+        one_digit_posi.append(sub_posi2)
+    return one_digit_posi
+
+present_one_digit(10)
