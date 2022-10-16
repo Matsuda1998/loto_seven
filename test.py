@@ -231,10 +231,15 @@ def next_one_digit(n):
                 next_list.append(t)
     print(next_list)
 
-next_one_digit(3)
+next_one_digit(2)
+#前回の当選番号の数字からよく出ている下一桁数字を調べる関数を作る
+#next_one_digitを複数回繰り返し良く出ている数字を調べる⇒あとで買い目を
+#だすアルゴリズムを考える時
 
-#もう少し簡単にならないかやってみる。
-def present_one_digit(n):
+
+#present_one_digit&sortもう少し簡単にならないかやってみる。
+#できた！上のpresent_one_digitとsort_pre_one_digitをひとつにまとめた！
+def present_one_digit2(n):
     """直近ｎ回の下一桁数字（０～９）とその位置（第ｍ数字として）を
     調べる"""
     m=n*-1
@@ -282,4 +287,28 @@ def present_one_digit(n):
         one_digit_posi.append(sub_posi2)
     return one_digit_posi
 
-present_one_digit(10)
+present_one_digit2(3)
+
+def next_conti_number(n):
+    """第ｎ回の当選番号の中から次回も継続して出た数字を調べる
+    （引っ張り数字）"""
+    n_result=total_result[n:n+2]
+    n_result.insert(0,None)
+    print(n_result)#第ｎ回の当選番号のリスト
+    
+    next_list=[]
+    for j,val1 in enumerate(n_result[1]):
+        if val1 == None:
+            continue
+        for i,val2 in enumerate(n_result[2]):
+            if val2 == None:
+                continue
+            if val1 == val2 :
+                t=(str(val1),n_result[1][j],j,n_result[2][i],i)
+                #継続数字,ｎ回の数字，ｎ回の位置（第ｍ数字）,次回（ｎ＋１）の数字，次回（ｎ＋１）の位置（第ｍ数字）
+                #上でインデックス１、３はいらないがとりあえずnext_one_digitの戻り値と形を合わせておく
+                next_list.append(t)
+    print(next_list)
+
+next_conti_number(9)
+
