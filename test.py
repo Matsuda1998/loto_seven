@@ -312,3 +312,16 @@ def next_conti_number(n):
 
 next_conti_number(9)
 
+def present_serial_number(n):
+    """第ｎ回の連続数字（ｘ，ｘ２）とその位置（第ｍ，ｍ２数字として）を
+    調べる"""
+    n_result=total_result[n]
+    print(n_result)#第ｎ回の当選番号のリスト
+    serial_list=[]
+    for i in range(1,7):
+        if n_result[i] == n_result[i+1]-1:
+            val=[n_result[i],n_result[i+1],i,i+1]#ｘ，ｘ２，ｍ，ｍ２
+            serial_list.append(val)
+    print(serial_list)
+
+present_serial_number(1)
