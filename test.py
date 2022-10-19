@@ -1,3 +1,4 @@
+from ast import Not
 import re
 
 
@@ -325,3 +326,32 @@ def present_serial_number(n):
     print(serial_list)
 
 present_serial_number(1)
+
+def next_shift_number(n):
+    """第ｎ回の当選番号の本数字から次回に＋１の数字(r_shift=後数字)、
+    －１の数字（l_shift=前数字）を調べる
+    （前数字・後数字）"""
+
+    n_result=total_result[n:n+2]
+    n_result.insert(0,None)
+    print(n_result)#第ｎ回の当選番号のリスト
+    r_shift_list=[]
+    l_shift_list=[]
+    for j,val1 in enumerate(n_result[1]):
+        if val1 == None:
+            continue
+        for i,val2 in enumerate(n_result[2]):
+            if val2 == None:
+                continue
+            if val1+1 == val2 :
+                t=(n_result[1][j],j,n_result[2][i],i)
+                #ｎ回の数字，ｎ回の位置（第ｍ数字）,次回（ｎ＋１）の数字，次回（ｎ＋１）の位置（第ｍ数字）
+                r_shift_list.append(t)
+            if val1-1 == val2:
+                u=(n_result[1][j],j,n_result[2][i],i)
+                l_shift_list.append(u)
+    print(r_shift_list)
+    print(l_shift_list)
+
+next_shift_number(7)
+
